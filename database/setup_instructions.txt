@@ -1,0 +1,85 @@
+install postgres.app
+
+Click "Initialize" to create a new server
+
+Server normally runs on port 5432
+
+Configure your $PATH to use the included command line tools (optional):
+
+    sudo mkdir -p /etc/paths.d &&
+    echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
+
+commandline tools
+
+type psql in terminal window
+
+\l lists databases available on server
+
+\c connects you to a specified database
+\c dbname dbuser
+
+generally 
+psql -h host -d database -U user -W
+connects to a remote database
+
+SELECT version();  retrieves current postgreSQL server
+
+\dt lists all tables
+
+\d table name  describes table
+
+\dn  lists all schemas in current database
+\df lists available functions
+\dv lists available views
+\du lists all users
+
+\g executes the previous command
+\s list command history
+\s filename saves output to filename
+
+\i filename  executes commands in file
+
+\? lists available psql commands
+\h command  list help on command
+\e [file] edit query buffer or file w/ external editor
+
+download dvdrental database and diagram
+
+in psql terminal type
+
+CREATE DATABASE dvdrental;
+down dvdrental database and unzip
+
+type in mac terminal:
+$ pg_restore -U username -d dvdrental dvdrental.tar
+
+\l
+\c dvdrental
+
+in psql terminal:
+SELECT first_name FROM customer;
+
+SELECT first_name,last_name FROM customer ORDER BY first_name ASC;
+SELECT first_name, last_name FROM customer ORDER BY first_name;
+SELECT first_name, last_name FROM customer ORDER BY last_name DESC;
+SELECT first_name, last_name FROM customer ORDER BY first_name ASC, last_name DESC;
+SELECT first_name, LENGTH(first_name) len FROM customer ORDER BY LENGTH(first_name) DESC; 
+SELECT DISTINCT column_1 FROM table_name;
+SELECT DISTINCT column_1, column_2 FROM table_name;
+SELECT DISTINCT ON (column_1) column_alias, column_2 FROM table_name ORDER BY column_1, column_2; 
+
+SELECT
+   customer.customer_id,
+   customer.first_name customer_first_name,
+   customer.last_name customer_last_name,
+   customer.email,
+   staff.first_name staff_first_name,
+   staff.last_name staff_last_name,
+   amount,
+   payment_date
+FROM
+   customer
+INNER JOIN payment ON payment.customer_id = customer.customer_id
+INNER JOIN staff ON payment.staff_id = staff.staff_id;
+
+## use double quotes for control type chars in name

@@ -1,0 +1,68 @@
+---
+title: "Pet"
+output: html_document
+---
+```{r}
+library(msa)
+library(seqinr)
+library(ape)
+library(Biostrings)
+```
+
+```{r}
+system.file("tex", "texshade.sty", package="msa")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+petSeqs <- readAAStringSet("PETseqShortName.fasta", format="fasta")
+coolpetSeqs <- readAAStringSet("coolpets.txt", format="fasta")
+
+#petSeqs <- readAAStringSet("./PETaseSequences.fasta", format="fasta")
+#petSeqs <- readAAStringSet("./PETase2.fasta", format="fasta")
+petSeqs
+```
+
+```{r}
+petAlign <- msa(petSeqs)
+#petAlignClustalWAlign <- msa(petSeqs, "ClustalW")
+#petAlignClustalOmegaAlign <- msa(petSeqs, "ClustalOmega")
+```
+
+```{r}
+print(petAlign, show="complete")
+```
+
+```{r}
+msaPrettyPrint(petAlign, output="pdf", showNames="left",
+               showLogo="top", askForOverwrite=FALSE, verbose=FALSE)
+```
+
+
+#Phyogenetic Tree
+```{r}
+petAln2 <- msaConvert(petAlign, type="seqinr::alignment")
+```
+
+```{r}
+d <- dist.alignment(petAln2, "identity") 
+as.matrix(d)[2:5, "pdb|6EQD|A Chain A, Poly(ethylene terephthalate) hydrolase", drop=FALSE]
+peTree <- nj(d)
+```
+
+```{r}
+plot(peTree, main="Phylogenetic Tree of PETases")
+```
+
+# PrettyPrint
+```{r}
+#msaPrettyPrint(petAlign, output="pdf", y=c(158, 239),
+msaPrettyPrint(petAlign, output="pdf",
+               subset=c(1:5), showNames="none", showLogo="top",
+               logoColors="rasmol", shadingMode="similar",
+               showLegend=FALSE, askForOverwrite=FALSE,
+               file="petAlign3.pdf")
+```

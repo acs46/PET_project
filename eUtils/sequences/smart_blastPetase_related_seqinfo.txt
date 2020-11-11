@@ -1,0 +1,20 @@
+
+1. Chain A, Poly(ethylene terephthalate) hydrolase
+298 aa protein
+6EQD_A GI:1384036711
+
+2. PBS(A) depolymerase [Acidovorax delafieldii]
+304 aa protein
+BAB86909.1 GI:19911162
+
+3. alpha/beta hydrolase [[Polyangium] brachysporum]
+298 aa protein
+WP_047194864.1 GI:827202651
+
+4. hypothetical protein [Rhizobacter gummiphilus]
+292 aa protein
+WP_085749752.1 GI:1189691383
+
+5. lipase [Streptomyces coelicolor A3(2)]
+310 aa protein
+NP_625018.1 GI:21219239
